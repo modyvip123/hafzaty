@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>حافظتي الذكية</title>
+<meta name="description" content="حافظتي الذكية: تطبيق بيحفظ كل ما تنسخه تلقائياً ويزامنه بأمان.">
+<meta property="og:title" content="حافظتي الذكية"><meta property="og:description" content="كل ما تنسخه… محفوظ بأمان"><meta property="og:type" content="website"><meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap">
+<style>
+:root{--bg1:#fffaf0;--bg2:#f6e2bb;--ink:#3b2f27;--muted:#7a6a58;--glass:rgba(255,255,255,.58);--stroke:rgba(255,255,255,.8);--shadow:0 20px 55px rgba(150,110,40,.2);--leaf:#b79a4b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#1d1812;--bg2:#2e2316;--ink:#f6ebd9;--muted:#c6b79f;--glass:rgba(255,255,255,.08);--stroke:rgba(255,255,255,.16);--shadow:0 20px 55px rgba(0,0,0,.5);--leaf:#d9b565;color-scheme:dark}}
+:root[data-theme="dark"]{--bg1:#1d1812;--bg2:#2e2316;--ink:#f6ebd9;--muted:#c6b79f;--glass:rgba(255,255,255,.08);--stroke:rgba(255,255,255,.16);--shadow:0 20px 55px rgba(0,0,0,.5);--leaf:#d9b565;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:'Cairo',system-ui,sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2));min-height:100vh;overflow-x:hidden;line-height:1.7}
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:-2;animation:float 16s ease-in-out infinite;will-change:transform}
+.b1{width:340px;height:340px;background:#f3c873;top:-80px;left:-60px}
+.b2{width:300px;height:300px;background:#ffe9bf;bottom:8%;right:-80px;animation-delay:-5s}
+@keyframes float{50%{transform:translate(30px,-40px) scale(1.1)}}
+.tree{position:fixed;z-index:-1;width:min(48vw,400px);pointer-events:none;overflow:visible}
+.t1{top:0;right:0}.t2{bottom:0;left:0;transform:scaleX(-1) scaleY(-1)}
+.tree .sw{transform-origin:100% 0;animation:sway 10s ease-in-out 4.5s infinite}
+.t2 .sw{transform-origin:100% 0}
+@keyframes sway{50%{transform:rotate(2.5deg)}}
+.stem{fill:none;stroke:var(--leaf);stroke-width:3;stroke-linecap:round;opacity:.75;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 2.6s cubic-bezier(.4,.1,.2,1) .2s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.lf{fill:var(--leaf);opacity:0;transform-box:fill-box;transform-origin:0 50%;animation:grow 1s cubic-bezier(.2,.9,.3,1.25) forwards;animation-delay:calc(.6s + var(--i)*.16s)}
+@keyframes grow{from{transform:scale(0) rotate(-35deg);opacity:0}to{transform:none;opacity:.62}}
+.glass{background:var(--glass);border:1px solid var(--stroke);backdrop-filter:blur(20px) saturate(1.35);-webkit-backdrop-filter:blur(20px) saturate(1.35);box-shadow:var(--shadow);border-radius:30px}
+nav{position:sticky;top:12px;margin:12px auto 0;width:min(94%,980px);display:flex;align-items:center;justify-content:space-between;padding:10px 20px;z-index:20;border-radius:60px}
+nav b{font-weight:800;font-size:18px}
+.btn{display:inline-block;text-decoration:none;color:#3b2a10;font-weight:800;padding:14px 32px;border-radius:60px;background:linear-gradient(135deg,#f6d28f,#d9a441);box-shadow:0 10px 26px rgba(185,133,48,.38);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.9,.3,1.3);cursor:pointer;border:0;font-family:inherit;font-size:16px}
+nav .btn{padding:8px 20px;font-size:14px}
+.btn:hover{transform:translateY(-3px) scale(1.04)}
+.btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);animation:shine 3.5s infinite}
+@keyframes shine{60%,100%{left:130%}}
+.ghost{background:var(--glass);color:var(--ink);box-shadow:none;border:1px solid var(--stroke)}
+.ghost::after{display:none}
+main{width:min(94%,980px);margin:0 auto}
+.hero{min-height:72vh;display:grid;align-content:center;text-align:center;padding:40px 0}
+h1{font-size:clamp(36px,7vw,68px);font-weight:800;line-height:1.2;background:linear-gradient(120deg,var(--ink),#b98530 60%,#e3b05a);-webkit-background-clip:text;background-clip:text;color:transparent;animation:rise 1.2s cubic-bezier(.2,.8,.2,1) .5s both}
+.hero p{color:var(--muted);font-size:clamp(16px,2.4vw,20px);margin:18px auto 30px;max-width:620px;animation:rise 1.2s cubic-bezier(.2,.8,.2,1) .8s both}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:rise 1.2s cubic-bezier(.2,.8,.2,1) 1.1s both}
+@keyframes rise{from{opacity:0;transform:translateY(30px)}}
+.hint{margin-top:34px;color:var(--muted);font-size:13px;animation:rise 1s 1.6s both}
+.hint i{display:block;width:22px;height:34px;margin:8px auto 0;border:2px solid var(--muted);border-radius:14px;position:relative;opacity:.6}
+.hint i::after{content:"";position:absolute;top:6px;left:50%;width:4px;height:7px;margin-left:-2px;border-radius:3px;background:var(--muted);animation:dot 1.6s infinite}
+@keyframes dot{60%{transform:translateY(12px);opacity:0}}
+.sh{text-align:center;margin:30px 0 24px}
+.sh h2{font-size:clamp(26px,4vw,38px);font-weight:800}
+.sh p{color:var(--muted)}
+.stack{padding-bottom:20px}
+.sc{position:sticky;top:calc(84px + var(--k)*14px);margin-bottom:22px;padding:20px 22px;display:grid;grid-template-columns:auto 1fr;gap:16px;border-radius:24px;align-items:center;transform:scale(calc(1 - var(--p,0)*.07));filter:brightness(calc(1 - var(--p,0)*.1));transform-origin:50% 0;will-change:transform}
+.num{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-size:22px;font-weight:800;color:#3b2a10;background:linear-gradient(135deg,#f6d28f,#d9a441);box-shadow:0 12px 28px rgba(185,133,48,.35)}
+.sc h3{font-size:clamp(18px,3vw,22px);margin-bottom:2px}
+.sc p{color:var(--muted);font-size:14.5px;line-height:1.6}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tags span{padding:3px 12px;border-radius:50px;font-size:12px;background:var(--glass);border:1px solid var(--stroke)}
+.sc .btn{margin-top:12px;padding:10px 26px;font-size:15px}
+.sc small{display:block;margin-top:10px;color:var(--muted)}
+@media (max-width:640px){.sc{grid-template-columns:1fr;text-align:center;justify-items:center;padding:20px 16px}.tags{justify-content:center}}
+.tools{display:flex;gap:8px;align-items:center}
+.tb{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--ink);font:700 13px Cairo,sans-serif;background:var(--glass);border:1px solid var(--stroke)}
+.bub{display:flex;flex-direction:column;gap:6px;margin-top:12px;font-size:13px}
+.bub span{max-width:80%;padding:7px 12px;border-radius:14px;background:var(--glass);border:1px solid var(--stroke)}
+.bub .me{align-self:flex-start;background:linear-gradient(135deg,#fbe4b3,#f3cb86);color:#3b2a10;border-color:transparent}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:34px 0}
+.info .glass{padding:22px}
+.info h3{font-size:19px;margin-bottom:6px}.info p,.info li{color:var(--muted);font-size:14.5px}.info ul{padding-inline-start:18px}
+#qrc{display:none;text-align:center}#qrc div{display:inline-block;padding:10px;background:#fff;border-radius:16px;margin-top:8px}
+.faq details{padding:14px 20px;margin-bottom:10px;border-radius:20px}
+.faq summary{cursor:pointer;font-weight:700;list-style:none}.faq summary::-webkit-details-marker{display:none}
+.faq p{color:var(--muted);margin-top:8px;font-size:14.5px}
+.wa{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;display:grid;place-items:center;z-index:30;box-shadow:0 12px 28px rgba(37,160,90,.4);background:linear-gradient(135deg,#46d37e,#1fa95b);animation:wob 3s ease-in-out infinite}
+.wa svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+@keyframes wob{50%{transform:translateY(-6px)}}
+.links a{color:var(--muted);margin:0 10px;cursor:pointer;text-decoration:underline}
+dialog{border:1px solid var(--stroke);border-radius:26px;width:min(92%,560px);max-height:80vh;padding:24px;background:var(--bg1);color:var(--ink);box-shadow:var(--shadow);font-family:inherit}
+dialog::backdrop{background:rgba(40,28,10,.45);backdrop-filter:blur(4px)}
+dialog h3{margin-bottom:10px}dialog li{margin:8px 0;color:var(--muted);font-size:14.5px}dialog ol{padding-inline-start:20px}dialog button{margin-top:14px}
+footer{text-align:center;color:var(--muted);padding:30px 0 50px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);padding:12px 22px;border-radius:50px;z-index:50;opacity:0;pointer-events:none;transition:.4s cubic-bezier(.2,.9,.3,1.2);font-weight:600}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.stem{stroke-dashoffset:0}.lf{opacity:.62}.sc{transform:none;filter:none}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<svg class="tree t1" viewBox="0 0 300 260" aria-hidden="true"><g class="sw"><path class="stem" pathLength="1" d="M312 4C240 16 150 56 84 162"/></g></svg>
+<svg class="tree t2" viewBox="0 0 300 260" aria-hidden="true"><g class="sw"><path class="stem" pathLength="1" d="M312 4C250 30 170 70 120 170"/></g></svg>
+
+<nav class="glass"><b data-en="Smart Clipboard">حافظتي الذكية</b><div class="tools"><button class="tb" id="thm" aria-label="theme">◐</button><button class="tb" id="lng" aria-label="language">EN</button><a class="btn dl" data-en="Download">حمّل التطبيق</a></div></nav>
+
+<main>
+<header class="hero">
+  <h1 data-en="Everything you copy… saved safely">كل ما تنسخه… محفوظ بأمان</h1>
+  <p data-en="Auto-saves every text and link you copy, syncs across your devices, and locks passwords separately.">حافظتي الذكية بتحفظ كل نص ورابط بتنسخه تلقائياً، وتزامنه بين أجهزتك، وتقفل الباسوردات بقفل خاص.</p>
+  <div class="row"><a class="btn dl" data-en="Download now">حمّل دلوقتي</a><a class="btn ghost" href="#how" data-en="Learn more">اعرف أكتر</a></div>
+  <div class="hint"><span data-en="Scroll down">اسحب لتحت</span><i></i></div>
+</header>
+
+<div class="sh" id="how"><h2 data-en="The app in 5 cards">التطبيق في 5 كروت</h2><p data-en="Each card stacks on the previous one as you scroll">كل كارت بيتراكم فوق اللي قبله وانت بتنزل</p></div>
+<div class="stack">
+  <article class="glass sc" style="--k:0"><div class="num">1</div><div><h3 data-en="What is Smart Clipboard?">إيه هي حافظتي الذكية؟</h3><p>تطبيق أندرويد بيفتكر كل حاجة نسختها: نصوص، روابط، ملاحظات. من غير ما تدوس على حاجة، وكل ده في شكل هادي ومريح للعين.</p><div class="tags"><span>نصوص</span><span>روابط</span><span>ملاحظات</span></div></div></article>
+  <article class="glass sc" style="--k:1"><div class="num">2</div><div><h3 data-en="Auto-save & fast search">حفظ تلقائي وبحث سريع</h3><p>بعد ما تفعّل الخدمة مرة واحدة، أي نسخ بيتحفظ لوحده. دوّر في محفوظاتك أو صنّفها بفلتر واحد، وثبّت المهم فوق.</p><div class="tags"><span>حفظ تلقائي</span><span>بحث</span><span>تثبيت</span></div></div></article>
+  <article class="glass sc" style="--k:2"><div class="num">3</div><div><h3 data-en="Passwords with a private lock">باسوردات بقفل خاص</h3><p>قسم مستقل للباسوردات بيتفتح ببصمتك أو كودك، وبتتخفي بالنجوم لحد ما تظهرها بنفسك.</p><div class="tags"><span>بصمة</span><span>قفل</span><span>إخفاء</span></div></div></article>
+  <article class="glass sc" style="--k:3"><div class="num">4</div><div><h3 data-en="Account & encrypted sync">حساب ومزامنة مشفّرة</h3><p>سجّل حسابك وبياناتك تتزامن بين أجهزتك مشفّرة، وتقدر تغيّر الحد الأقصى للمحفوظات أو تخليه غير محدود.</p><div class="tags"><span>مزامنة</span><span>تشفير</span><span>غير محدود</span></div></div></article>
+  <article class="glass sc" style="--k:4"><div class="num">5</div><div><h3 data-en="Live support & notifications">دعم مباشر وإشعارات</h3><p>ابعت شكواك واتكلم مع الدعم في شات زي واتساب، وتوصلك رسايل الإدارة وردود الدعم كإشعار على موبايلك.</p><div class="bub"><span>عندي مشكلة في المزامنة</span><span class="me">أهلاً بيك! بنراجعها حالاً ✓✓</span></div><a class="btn dl" data-en="Download the app (APK)">حمّل حافظتي الذكية (APK)</a><small data-en="Free • Android 7+">مجانية • أندرويد 7 وما فوق</small></div></article>
+</div>
+
+<div class="info">
+  <div class="glass"><h3 data-en="Latest version">آخر إصدار</h3><p><b id="vname">...</b></p><ul id="vnotes"></ul></div>
+  <div class="glass" id="qrc"><h3 data-en="Open on your phone">افتح من موبايلك</h3><p data-en="Scan to download from your phone">امسح الكود وحمّل من الموبايل</p><div id="qr"></div></div>
+</div>
+
+<div class="sh"><h2 data-en="FAQ">أسئلة شائعة</h2></div>
+<div class="faq">
+  <details class="glass"><summary data-en="Is my data safe?">هل بياناتي آمنة؟</summary><p data-en="Your saved items sync encrypted with your account, and passwords have their own lock.">المحفوظات بتتزامن مشفّرة بحسابك، والباسوردات ليها قفل خاص.</p></details>
+  <details class="glass"><summary data-en="Why does it need Accessibility?">ليه محتاج صلاحية إمكانية الوصول؟</summary><p data-en="To detect that you copied text and save it automatically. You enable it once, only with your consent.">عشان نكتشف إنك نسخت نص ونحفظه تلقائياً. بتفعّلها مرة واحدة وبموافقتك بس.</p></details>
+  <details class="glass"><summary data-en="Does it drain battery or data?">هل بيستهلك بطارية أو إنترنت؟</summary><p data-en="It syncs periodically and only downloads what changed.">بيزامن كل فترة وبينزّل بس اللي اتغيّر.</p></details>
+  <details class="glass"><summary data-en="How do I install it?">إزاي أثبّته؟</summary><p data-en="Download the file, allow installs from unknown sources when asked, then open it.">حمّل الملف، وافق على التثبيت من مصادر غير معروفة لما الموبايل يسأل، وافتحه.</p></details>
+  <details class="glass"><summary data-en="How do I delete my account?">إزاي أمسح حسابي؟</summary><p data-en="Message support from inside the app and we will delete it.">ابعت للدعم من جوه التطبيق وهنمسحه.</p></details>
+</div>
+</main>
+<a class="wa" id="wa" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8.2 18.8z"/><path d="M9 9c0 3 3 6 6 6l1.3-1.5-2-1-1 .7c-1-.5-1.7-1.2-2.2-2.2l.7-1-1-2z"/></svg></a>
+<dialog id="dlg"></dialog>
+<footer><div class="links"><a data-p="priv" data-en="Privacy Policy">سياسة الخصوصية</a><a data-p="terms" data-en="Terms of Use">شروط الاستخدام</a></div><p>© <span id="yr"></span> <span data-en="Smart Clipboard">حافظتي الذكية</span></p></footer>
+<div class="toast glass" id="toast"></div>
+
+<script>
+// ارفع ملف التطبيق جنب الصفحة بنفس الاسم ده، والتحميل هيشتغل لوحده
+var APK_FILE = "hafzaty.apk";
+document.getElementById("yr").textContent = new Date().getFullYear();
+var tt;
+function toast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("on")},3200)}
+function startDl(e){
+  e.preventDefault();
+  fetch(APK_FILE,{method:"HEAD"}).then(function(r){
+    if(!r.ok) throw 0;
+    var a=document.createElement("a");a.href=APK_FILE;a.download=APK_FILE;document.body.appendChild(a);a.click();a.remove();
+    toast("بدأ التحميل...");
+  }).catch(function(){toast("ملف التطبيق لسه متحطش. هيتفعّل أول ما يتم رفعه.")});
+}
+document.querySelectorAll(".dl").forEach(function(a){a.addEventListener("click",startDl)});
+
+var FB="https://clipkeeper-a9ad4-default-rtdb.firebaseio.com",WA="201128452565";
+document.getElementById("wa").href="https://wa.me/"+WA;
+var P={priv:["سياسة الخصوصية","Privacy Policy",["بنجمع: الاسم والإيميل والموبايل لحسابك، والنصوص والروابط اللي تحفظها، ورسايل الدعم، ونسخة التطبيق وآخر ظهور وحالة المزامنة.","بنستخدم بياناتك عشان نحفظ ونزامن محفوظاتك، وننفّذ طلبات الدعم، ونبعتلك إشعارات الإدارة.","خدمة إمكانية الوصول بتتفعّل بموافقتك وبنستخدمها لاكتشاف نسخ النص وحفظه تلقائياً.","المحفوظات بتتخزن على جهازك وعلى Firebase التابعة لـ Google للمزامنة. قد نحتفظ بنسخة احتياطية مشفّرة تُستخدم لاستعادة الحساب فقط.","مبنبيعش بياناتك ومفيش إعلانات في التطبيق.","تقدر تطلب مسح حسابك وبياناتك في أي وقت من الدعم."],["We collect: name, email and phone for your account, items you save, support messages, app version, last seen and sync status.","We use data to save and sync your items, handle support, and send admin notifications.","The Accessibility service is enabled with your consent and used to detect copied text and save it automatically.","Items are stored on your device and on Google Firebase for sync. We may keep an encrypted backup used only for account recovery.","We do not sell your data and the app has no ads.","You can ask support to delete your account and data at any time."]],terms:["شروط الاستخدام","Terms of Use",["التطبيق مجاني للاستخدام الشخصي.","إنت مسؤول عن اللي بتحفظه وبتنسخه، ومنها الباسوردات.","ممكن نوقف أي حساب بيسيء استخدام التطبيق.","التطبيق بيتقدّم كما هو من غير ضمانات، وممكن نحدّثه أو نغيّره.","استمرارك في الاستخدام معناه موافقتك على أي تعديل في الشروط."],["The app is free for personal use.","You are responsible for what you copy and save, including passwords.","We may suspend accounts that abuse the app.","The app is provided as is without warranties and may change.","Continuing to use it means you accept updated terms."]]};
+document.querySelectorAll("[data-p]").forEach(function(a){a.onclick=function(){var d=P[a.dataset.p],en=document.documentElement.lang=="en",L=d[en?3:2],h="<h3>"+d[en?1:0]+"</h3><ol>";L.forEach(function(x){h+="<li>"+x+"</li>"});var m=document.getElementById("dlg");m.innerHTML=h+'</ol><button class="btn" onclick="this.closest(\'dialog\').close()">OK</button>';m.showModal()}});
+var lang="ar";document.querySelectorAll("[data-en]").forEach(function(e){e.dataset.ar=e.textContent});
+document.getElementById("lng").onclick=function(){lang=lang=="ar"?"en":"ar";var h=document.documentElement;h.lang=lang;h.dir=lang=="ar"?"rtl":"ltr";this.textContent=lang=="ar"?"EN":"ع";document.querySelectorAll("[data-en]").forEach(function(e){e.textContent=lang=="ar"?e.dataset.ar:e.dataset.en})};
+document.getElementById("thm").onclick=function(){var r=document.documentElement,d=r.dataset.theme=="dark"||(!r.dataset.theme&&matchMedia("(prefers-color-scheme:dark)").matches);r.dataset.theme=d?"light":"dark";try{localStorage.setItem("th",r.dataset.theme)}catch(e){}};
+try{var th=localStorage.getItem("th");if(th)document.documentElement.dataset.theme=th}catch(e){}
+fetch(FB+"/config/update.json").then(function(r){return r.json()}).then(function(j){if(!j)throw 0;document.getElementById("vname").textContent=(j.name||"")+(j.code?" (#"+j.code+")":"");(j.notes||"").split("\n").forEach(function(n){if(n.trim()){var li=document.createElement("li");li.textContent=n;document.getElementById("vnotes").appendChild(li)}})}).catch(function(){document.getElementById("vname").textContent="1.0"});
+if(matchMedia("(min-width:900px) and (pointer:fine)").matches){var q=document.createElement("script");q.src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";q.onload=function(){document.getElementById("qrc").style.display="block";new QRCode(document.getElementById("qr"),{text:location.href,width:140,height:140})};document.head.appendChild(q)}
+
+// الأشجار بتكبر أول ما الصفحة تفتح: الفرع بيترسم وبعدين الأوراق بتتفتح
+document.querySelectorAll(".tree").forEach(function(sv){
+  var stem=sv.querySelector(".stem"),g=sv.querySelector(".sw"),L=stem.getTotalLength(),n=9,NS="http://www.w3.org/2000/svg";
+  for(var i=1;i<=n;i++){
+    var t=i/n,p=stem.getPointAtLength(L*t),q=stem.getPointAtLength(Math.min(L,L*t+2)),ang=Math.atan2(q.y-p.y,q.x-p.x)*180/Math.PI,s=1.25-0.6*t;
+    [-50,50].forEach(function(d,k){
+      var gg=document.createElementNS(NS,"g");gg.setAttribute("transform","translate("+p.x+" "+p.y+") rotate("+(ang+d)+") scale("+(k?s*.9:s)+")");
+      var pa=document.createElementNS(NS,"path");pa.setAttribute("class","lf");pa.setAttribute("d","M0 0Q18 -12 42 0Q18 12 0 0");pa.style.setProperty("--i",i*2+k);
+      gg.appendChild(pa);g.appendChild(gg);
+    });
+  }
+});
+
+// الكروت بتتراكم: اللي تحت بتصغر شوية لما اللي بعدها يغطيها
+var sc=[].slice.call(document.querySelectorAll(".sc")),tick=false;
+function upd(){
+  tick=false;
+  sc.forEach(function(c,i){
+    var nx=sc[i+1];if(!nx){return}
+    var cr=c.getBoundingClientRect(),o=(cr.top+cr.height)-nx.getBoundingClientRect().top,p=Math.max(0,Math.min(1,o/cr.height));
+    c.style.setProperty("--p",p.toFixed(3));
+  });
+}
+addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+addEventListener("resize",upd);upd();
+</script>
+</body>
+</html>
